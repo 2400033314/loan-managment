@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application - Borrower Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-file-alt"></i> Loan Application</h1>
+                <div class="header-actions">
+                    <a href="borrower-catalog.html" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Catalog
+                    </a>
+                    <span class="user-info" id="userInfo">Welcome, Borrower</span>
+                    <button class="btn btn-secondary" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Application Form Section -->
+            <section id="applicationForm" class="section active">
+                <div class="application-container">
+                    <div class="application-header">
+                        <h2 id="applicationTitle">Loan Application</h2>
+                        <div class="loan-type-info" id="loanTypeInfo">
+                            <!-- Loan type info will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <form id="loanApplicationForm" class="application-form">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dateOfBirth">Date of Birth *</label>
+                                    <input type="date" id="dateOfBirth" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="panNumber">PAN Number *</label>
+                                    <input type="text" id="panNumber" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Loan Details -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-calculator"></i> Loan Details</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loanAmount">Loan Amount (₹) *</label>
+                                    <input type="number" id="loanAmount" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loanTenure">Loan Tenure (months) *</label>
+                                    <input type="number" id="loanTenure" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="purpose">Loan Purpose *</label>
+                                    <select id="purpose" required>
+                                        <option value="">Select Purpose</option>
+                                        <option value="personal">Personal Use</option>
+                                        <option value="home">Home Purchase</option>
+                                        <option value="car">Car Purchase</option>
+                                        <option value="education">Education</option>
+                                        <option value="business">Business</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="employmentType">Employment Type *</label>
+                                    <select id="employmentType" required>
+                                        <option value="">Select Employment</option>
+                                        <option value="salaried">Salaried</option>
+                                        <option value="self-employed">Self-Employed</option>
+                                        <option value="business">Business Owner</option>
+                                        <option value="professional">Professional</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Financial Information -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-rupee-sign"></i> Financial Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="monthlyIncome">Monthly Income (₹) *</label>
+                                    <input type="number" id="monthlyIncome" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="existingEMI">Existing EMI (₹)</label>
+                                    <input type="number" id="existingEMI" value="0">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="companyName">Company Name</label>
+                                    <input type="text" id="companyName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="workExperience">Work Experience (years)</label>
+                                    <input type="number" id="workExperience" min="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Information -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Address Information</h3>
+                            <div class="form-group">
+                                <label for="currentAddress">Current Address *</label>
+                                <textarea id="currentAddress" rows="3" required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State *</label>
+                                    <input type="text" id="state" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pincode">Pincode *</label>
+                                    <input type="text" id="pincode" required pattern="[0-9]{6}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Document Upload -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-upload"></i> Document Upload</h3>
+                            <div class="document-upload">
+                                <div class="upload-item">
+                                    <label for="panCard">PAN Card *</label>
+                                    <input type="file" id="panCard" accept=".pdf,.jpg,.jpeg,.png" required>
+                                </div>
+                                <div class="upload-item">
+                                    <label for="aadharCard">Aadhar Card *</label>
+                                    <input type="file" id="aadharCard" accept=".pdf,.jpg,.jpeg,.png" required>
+                                </div>
+                                <div class="upload-item">
+                                    <label for="salarySlip">Salary Slip (Last 3 months) *</label>
+                                    <input type="file" id="salarySlip" accept=".pdf,.jpg,.jpeg,.png" required>
+                                </div>
+                                <div class="upload-item">
+                                    <label for="bankStatement">Bank Statement (Last 6 months) *</label>
+                                    <input type="file" id="bankStatement" accept=".pdf,.jpg,.jpeg,.png" required>
+                                </div>
+                                <div class="upload-item">
+                                    <label for="addressProof">Address Proof *</label>
+                                    <input type="file" id="addressProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="form-section">
+                            <div class="terms-section">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="termsAccepted" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#" onclick="showTerms()">Terms and Conditions</a> *
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="privacyAccepted" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#" onclick="showPrivacy()">Privacy Policy</a> *
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="saveDraft()">
+                                <i class="fas fa-save"></i> Save Draft
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Terms and Conditions Modal -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Terms and Conditions</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>Loan Application Terms</h4>
+                <p>By submitting this loan application, you agree to the following terms:</p>
+                <ul>
+                    <li>All information provided is true and accurate</li>
+                    <li>You authorize us to verify your information</li>
+                    <li>Loan approval is subject to verification and credit assessment</li>
+                    <li>Interest rates are subject to change</li>
+                    <li>Processing fees may apply</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Privacy Policy</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>Data Protection</h4>
+                <p>We are committed to protecting your personal information:</p>
+                <ul>
+                    <li>Your data is encrypted and secure</li>
+                    <li>We only use your information for loan processing</li>
+                    <li>We do not share your data with third parties</li>
+                    <li>You can request data deletion at any time</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="borrower-application.js"></script>
+</body>
+</html>
+

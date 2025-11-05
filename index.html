@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Management System - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1><i class="fas fa-calculator"></i> Loan Management System</h1>
+                <p>Choose your role to continue</p>
+            </div>
+            
+            <div class="role-selection">
+                <div class="role-card" onclick="selectRole('lender')">
+                    <div class="role-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Lender</h3>
+                    <p>Manage loans, track payments, and analyze portfolio performance</p>
+                    <div class="role-features">
+                        <span><i class="fas fa-check"></i> Loan Portfolio Management</span>
+                        <span><i class="fas fa-check"></i> Payment Tracking</span>
+                        <span><i class="fas fa-check"></i> Risk Analysis</span>
+                        <span><i class="fas fa-check"></i> Financial Reports</span>
+                    </div>
+                </div>
+                
+                <div class="role-card" onclick="selectRole('borrower')">
+                    <div class="role-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Borrower</h3>
+                    <p>Track your loans, calculate payments, and manage your debt</p>
+                    <div class="role-features">
+                        <span><i class="fas fa-check"></i> Personal Loan Tracking</span>
+                        <span><i class="fas fa-check"></i> Payment Calculator</span>
+                        <span><i class="fas fa-check"></i> Debt Management</span>
+                        <span><i class="fas fa-check"></i> Payment History</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="login-form" id="loginForm" style="display: none;">
+                <h2 id="loginTitle">Login</h2>
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="Enter your password">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="goBack()">Back</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <div class="login-footer">
+                    <p>Don't have an account? <a href="#" onclick="showRegister()">Register here</a></p>
+                </div>
+            </div>
+            
+            <div class="register-form" id="registerForm" style="display: none;">
+                <h2 id="registerTitle">Register</h2>
+                <form id="registerAuthForm">
+                    <div class="form-group">
+                        <label for="regUsername">Username</label>
+                        <input type="text" id="regUsername" required placeholder="Choose a username">
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email</label>
+                        <input type="email" id="regEmail" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" required placeholder="Choose a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" required placeholder="Confirm your password">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="goBack()">Back</button>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+                <div class="login-footer">
+                    <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
+

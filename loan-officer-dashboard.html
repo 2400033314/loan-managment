@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Officer Dashboard - Loan Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-user-tie"></i> Loan Officer Dashboard</h1>
+                <div class="header-actions">
+                    <span class="user-info" id="userInfo">Welcome, Loan Officer</span>
+                    <button class="btn btn-secondary" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="section active">
+                <div class="dashboard-grid">
+                    <div class="stats-card officer-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>My Applications</h3>
+                            <p class="stats-value" id="myApplications">0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card officer-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>Approved</h3>
+                            <p class="stats-value" id="approvedCount">0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card officer-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>Pending Review</h3>
+                            <p class="stats-value" id="pendingCount">0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card officer-card">
+                        <div class="stats-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>Approval Rate</h3>
+                            <p class="stats-value" id="approvalRate">0%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="officer-sections">
+                    <div class="officer-section">
+                        <h2>My Performance</h2>
+                        <div class="performance-metrics">
+                            <div class="metric-card">
+                                <h4>This Month</h4>
+                                <div class="metric-value">12 Applications</div>
+                                <div class="metric-change positive">+15% from last month</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Average Processing Time</h4>
+                                <div class="metric-value">2.3 days</div>
+                                <div class="metric-change positive">-0.5 days improvement</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Customer Satisfaction</h4>
+                                <div class="metric-value">4.8/5</div>
+                                <div class="metric-change positive">+0.2 from last month</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Section -->
+            <section id="applications" class="section">
+                <div class="section-header">
+                    <h2>My Applications</h2>
+                    <div class="filter-controls">
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="under_review">Under Review</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <select id="priorityFilter">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High Priority</option>
+                            <option value="medium">Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="applications-list" id="applicationsList">
+                    <div class="application-card">
+                        <div class="application-header">
+                            <div class="applicant-info">
+                                <h3>John Doe</h3>
+                                <p>Personal Loan Application</p>
+                            </div>
+                            <div class="application-status">
+                                <span class="status-badge status-pending">Pending</span>
+                                <span class="priority-badge priority-high">High Priority</span>
+                            </div>
+                        </div>
+                        <div class="application-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Loan Amount:</span>
+                                <span class="detail-value">₹2,50,000</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Applied Date:</span>
+                                <span class="detail-value">2024-01-15</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Credit Score:</span>
+                                <span class="detail-value">750</span>
+                            </div>
+                        </div>
+                        <div class="application-actions">
+                            <button class="btn btn-primary" onclick="loanOfficer.reviewApplication('1')">
+                                <i class="fas fa-eye"></i> Review
+                            </button>
+                            <button class="btn btn-success" onclick="loanOfficer.approveApplication('1')">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button class="btn btn-danger" onclick="loanOfficer.rejectApplication('1')">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks Section -->
+            <section id="tasks" class="section">
+                <h2>My Tasks</h2>
+                <div class="tasks-list">
+                    <div class="task-item">
+                        <div class="task-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="task-content">
+                            <h4>Review Home Loan Application</h4>
+                            <p>Sarah Smith - ₹15,00,000</p>
+                            <span class="task-due">Due: Today</span>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Start Review</button>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <div class="task-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="task-content">
+                            <h4>Follow up with Customer</h4>
+                            <p>Rajesh Kumar - Car Loan Inquiry</p>
+                            <span class="task-due">Due: Tomorrow</span>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-secondary">Mark Complete</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tools Section -->
+            <section id="tools" class="section">
+                <h2>Officer Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Credit Score Calculator</h3>
+                        <p>Calculate and assess credit scores</p>
+                        <button class="btn btn-primary">Open Calculator</button>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Risk Assessment Tool</h3>
+                        <p>Evaluate loan risk factors</p>
+                        <button class="btn btn-primary">Open Tool</button>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Document Verification</h3>
+                        <p>Verify customer documents</p>
+                        <button class="btn btn-primary">Start Verification</button>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Customer Communication</h3>
+                        <p>Send updates to customers</p>
+                        <button class="btn btn-primary">Send Message</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="loan-officer-script.js"></script>
+</body>
+</html>
+
+
