@@ -49,9 +49,13 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true };
     } catch (error) {
+      console.error('Login error:', error);
+      const errorMessage = error.response?.data?.error || 
+                         error.message || 
+                         (error.code === 'ECONNREFUSED' ? 'Cannot connect to server. Make sure backend is running on port 5000.' : 'Login failed');
       return { 
         success: false, 
-        error: error.response?.data?.error || 'Login failed' 
+        error: errorMessage
       };
     }
   };
@@ -73,9 +77,13 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true };
     } catch (error) {
+      console.error('Registration error:', error);
+      const errorMessage = error.response?.data?.error || 
+                         error.message || 
+                         (error.code === 'ECONNREFUSED' ? 'Cannot connect to server. Make sure backend is running on port 5000.' : 'Registration failed');
       return { 
         success: false, 
-        error: error.response?.data?.error || 'Registration failed' 
+        error: errorMessage
       };
     }
   };

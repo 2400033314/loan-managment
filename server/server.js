@@ -101,6 +101,18 @@ app.post('/api/auth/register', async (req, res) => {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    // Validate role
+    const validRoles = ['admin', 'lender', 'borrower', 'financial_analyst'];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({ error: 'Invalid role' });
+    }
+
     // Check if user exists
     if (users.find(u => u.username === username)) {
       return res.status(400).json({ error: 'Username already exists' });

@@ -8,3 +8,30 @@
     font-weight: 500;
 }
 
+.input-error {
+    border-color: #e53e3e !important;
+}
+
+.error-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #e53e3e;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.success-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #48bb78;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.error-text i,
+.success-text i {
+    font-size: 0.8rem;
+}
+

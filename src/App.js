@@ -7,6 +7,7 @@ import BorrowerDashboard from './components/Borrower/BorrowerDashboard';
 import BorrowerCatalog from './components/Borrower/BorrowerCatalog';
 import BorrowerApplication from './components/Borrower/BorrowerApplication';
 import AnalystDashboard from './components/FinancialAnalyst/AnalystDashboard';
+import AdminDashboard from './components/Admin/AdminDashboard';
 import './App.css';
 
 function PrivateRoute({ children, allowedRoles = [] }) {
@@ -34,6 +35,16 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
+            
+            {/* Admin Routes */}
+            <Route 
+              path="/admin/dashboard" 
+              element={
+                <PrivateRoute allowedRoles={['admin']}>
+                  <AdminDashboard />
+                </PrivateRoute>
+              } 
+            />
             
             {/* Borrower Routes */}
             <Route 

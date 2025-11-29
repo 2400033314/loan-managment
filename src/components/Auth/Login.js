@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import EmailVerification from './EmailVerification';
 import './Login.css';
 
 const Login = () => {
@@ -14,6 +15,9 @@ const Login = () => {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
+  const [pendingRegistration, setPendingRegistration] = useState(null);
+  const [emailValid, setEmailValid] = useState(true);
   const { login, register } = useAuth();
   const navigate = useNavigate();
 
@@ -75,12 +79,23 @@ const Login = () => {
     setError('');
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
     setError('');
+    
+    // Validate email in real-time
+    if (name === 'email') {
+      setEmailValid(validateEmail(value) || value === '');
+    }
   };
 
   const handleLogin = async (e) => {
@@ -109,6 +124,13 @@ const Login = () => {
       return;
     }
 
+    // Validate email format
+    if (!validateEmail(formData.email)) {
+      setError('Please enter a valid email address');
+      setEmailValid(false);
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -119,18 +141,39 @@ const Login = () => {
       return;
     }
 
+    // Store registration data and show email verification
+    setPendingRegistration({
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      role: selectedRole
+    });
+    setShowEmailVerification(true);
+  };
+
+  const handleEmailVerified = async () => {
+    if (!pendingRegistration) return;
+
     const result = await register(
-      formData.username,
-      formData.email,
-      formData.password,
-      selectedRole
+      pendingRegistration.username,
+      pendingRegistration.email,
+      pendingRegistration.password,
+      pendingRegistration.role
     );
 
     if (result.success) {
+      setShowEmailVerification(false);
+      setPendingRegistration(null);
       redirectToDashboard();
     } else {
       setError(result.error);
+      setShowEmailVerification(false);
     }
+  };
+
+  const handleVerificationCancel = () => {
+    setShowEmailVerification(false);
+    setPendingRegistration(null);
   };
 
   const redirectToDashboard = () => {
@@ -265,7 +308,7 @@ const Login = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="regEmail">Email</label>
+                <label htmlFor="regEmail">Email *</label>
                 <input
                   type="email"
                   id="regEmail"
@@ -274,7 +317,18 @@ const Login = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="Enter your email"
+                  className={formData.email && !emailValid ? 'input-error' : ''}
                 />
+                {formData.email && !emailValid && (
+                  <span className="error-text">
+                    <i className="fas fa-exclamation-circle"></i> Please enter a valid email address
+                  </span>
+                )}
+                {formData.email && emailValid && (
+                  <span className="success-text">
+                    <i className="fas fa-check-circle"></i> Valid email format
+                  </span>
+                )}
               </div>
               <div className="form-group">
                 <label htmlFor="regPassword">Password</label>
@@ -311,6 +365,15 @@ const Login = () => {
               <p>Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); setShowLogin(true); setShowRegister(false); }}>Login here</a></p>
             </div>
           </div>
+        )}
+
+        {/* Email Verification Modal */}
+        {showEmailVerification && pendingRegistration && (
+          <EmailVerification
+            email={pendingRegistration.email}
+            onVerify={handleEmailVerified}
+            onCancel={handleVerificationCancel}
+          />
         )}
       </div>
     </div>
