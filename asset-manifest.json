@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/2400033314/loan-managment.git/static/css/main.49066e21.css",
+    "main.js": "/2400033314/loan-managment.git/static/js/main.53ff4217.js",
+    "index.html": "/2400033314/loan-managment.git/index.html",
+    "main.49066e21.css.map": "/2400033314/loan-managment.git/static/css/main.49066e21.css.map",
+    "main.53ff4217.js.map": "/2400033314/loan-managment.git/static/js/main.53ff4217.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.49066e21.css",
+    "static/js/main.53ff4217.js"
+  ]
+}
