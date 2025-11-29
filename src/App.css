@@ -1,0 +1,11 @@
+/* Import all styles from the original styles.css */
+@import './styles.css';
+
+/* Additional React-specific styles */
+.modal.show {
+    display: block;
+}
+
+.modal.hide {
+    display: none;
+}
